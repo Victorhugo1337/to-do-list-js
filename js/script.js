@@ -43,15 +43,23 @@ function loadTasks() {
 }
 
 function renderTasks() {
-    const tasks = getTasks();
-    taskList.innerHTML = "";
+    const tasks = getTasks(); // Recupera as tarefas salvas
+    const taskList = document.getElementById("taskList");
+if (!taskList) {
+    console.error("Elemento 'taskList' não encontrado.");
+    return;
+}
+    taskList.innerHTML = ""; // Limpa a lista antes de renderizar novamente
+
     tasks.forEach((task, index) => {
         const li = document.createElement("li");
         li.className = task.completed ? "completed" : "";
-        li.innerHTML = \`
-            <span onclick="toggleTask(${index})">\${task.text}</span>
+
+        li.innerHTML = `
+            <span onclick="toggleTask(${index})">${task.text}</span>
             <button onclick="deleteTask(${index})">Excluir</button>
-        \`;
+        `;
+
         taskList.appendChild(li);
     });
 }
